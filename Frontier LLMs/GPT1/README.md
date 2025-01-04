@@ -45,18 +45,6 @@ This repository contains a concise overview of the paper **"Improving Language U
 
 ---
 
-## Experimental Results
-
-| **Task**                  | **Dataset**        | **Improvement** |
-|---------------------------|--------------------|-----------------|
-| Commonsense Reasoning     | Story Cloze Test   | +8.9%           |
-| Question Answering        | RACE               | +5.7%           |
-| Textual Entailment        | MultiNLI           | +1.5%           |
-| Semantic Similarity       | STS-Benchmark      | +1.0%           |
-| Classification            | CoLA (Linguistic)  | +10.4%          |
-
----
-
 ## Why It Matters
 - Reduces reliance on large labeled datasets by leveraging unlabeled data.
 - Simplifies model adaptation to diverse tasks with task-agnostic pre-training.
@@ -66,4 +54,4 @@ This repository contains a concise overview of the paper **"Improving Language U
 
 ## Reference
 
-Radford, A., Narasimhan, K., Salimans, T., & Sutskever, I. (2018). Improving Language Understanding by Generative Pre-Training. [arXiv Preprint](https://arxiv.org/abs/1801.00001).
+Radford, A., Narasimhan, K., Salimans, T., & Sutskever, I. (2018). Improving Language Understanding by Generative Pre-Training. (https://cdn.openai.com/research-covers/language-unsupervised/language_understanding_paper.pdf).
