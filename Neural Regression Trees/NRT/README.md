@@ -1,3 +1,4 @@
+
 # Neural Regression Tree (NRT)
 
 ## Overview
@@ -23,24 +24,34 @@ The Neural Regression Tree (NRT) is a novel approach for Regression-via-Classifi
 ## Model Components
 
 ### Partition
-A partition, \(\Pi(Y)\), divides the response variable \(y \in Y\) into \(N\) disjoint intervals:
-\[ \Pi(Y) = \{C_1, C_2, \ldots, C_N\}, \text{where } \bigcup_{n=1}^{N} C_n = Y \]
+A partition, \( \Pi(Y) \), divides the response variable \( y \in Y \) into \( N \) disjoint intervals:
+```math
+\Pi(Y) = \{C_1, C_2, \ldots, C_N\}, 	ext{where } igcup_{n=1}^{N} C_n = Y
+```
 
 ### Classification Rule
-Maps input features \(x\) to bins:
-\[ h_{\theta}: x \rightarrow \{C_1, \ldots, C_N\} \]
+Maps input features \( x \) to bins:
+```math
+h_{	heta}: x 	o \{C_1, \ldots, C_N\}
+```
 
 ### Regression Rule
-Maps \(x\) and \(C_n\) to response intervals:
-\[ r: (x, C_n) \rightarrow (t_{n-1}, t_n] \]
+Maps \( x \) and \( C_n \) to response intervals:
+```math
+r: (x, C_n) 	o (t_{n-1}, t_n]
+```
 
 ### Combined Rule
-Predicts \(\hat{y}(x)\) using posterior probabilities:
-\[ \hat{y}(x) = \sum_{n=1}^{N} h_{\theta}^n(x) r_{C_n}(x) \]
+Predicts \( \hat{y}(x) \) using posterior probabilities:
+```math
+\hat{y}(x) = \sum_{n=1}^{N} h_{	heta}^n(x) r_{C_n}(x)
+```
 
 ### Objective
 Learn optimal thresholds and parameters:
-\[ \{t^*_n\}, \{\theta^*_n\} \leftarrow \arg \min_{t, \theta} \mathbb{E}_{x}[E(y, \hat{y}(x))] \]
+```math
+\{t^*_n\}, \{	heta^*_n\} \gets rg \min_{t, 	heta} \mathbb{E}_{x}[E(y, \hat{y}(x))]
+```
 
 ---
 
@@ -49,32 +60,40 @@ Learn optimal thresholds and parameters:
 The tree is built hierarchically, optimizing each node individually in a greedy manner.
 
 ### Node Optimization
-Each node \(n\) minimizes a combined loss:
-\[ \theta^*_n, t^*_n = \arg \min_{\theta_n, t_n} \lambda E_{\theta_n, t_n} + (1-\lambda) T(t_n) \]
+Each node \( n \) minimizes a combined loss:
+```math
+	heta^*_n, t^*_n = rg \min_{	heta_n, t_n} \lambda E_{	heta_n, t_n} + (1-\lambda) T(t_n)
+```
 
 ### Classification Loss
 Measures error in classifying data at each node:
-\[ E_{\theta_n, t_n} = \frac{1}{|D_n|} \sum_{(x, y) \in D_n} E(y(t_n), h_{\theta_n}(x)) \]
+```math
+E_{	heta_n, t_n} = rac{1}{|D_n|} \sum_{(x, y) \in D_n} E(y(t_n), h_{	heta_n}(x))
+```
 
 ### Triviality Penalty
 Prevents trivial solutions by balancing data across nodes using entropy:
-\[ T(t_n) = -p(t_n) \log p(t_n) - (1-p(t_n)) \log(1-p(t_n)) \]
-where \(p(t_n)\) is the proportion of data assigned to the left child.
+```math
+T(t_n) = -p(t_n) \log p(t_n) - (1-p(t_n)) \log(1-p(t_n))
+```
+where \( p(t_n) \) is the proportion of data assigned to the left child.
 
 ---
 
 ## Threshold Optimization
 
 ### Scan Method
-An exhaustive search across all possible threshold values \(t_n\), selecting the one that minimizes the loss.
+An exhaustive search across all possible threshold values \( t_n \), selecting the one that minimizes the loss.
 
 ### Gradient Method
-Smooth approximation of the binary indicator function \(y(t_n)\) for differentiability:
-\[ y(t_n) = 0.5(\tanh(\beta(y - t_n)) + 1) \]
-where \(\beta\) controls the steepness of the transition.
+Smooth approximation of the binary indicator function \( y(t_n) \) for differentiability:
+```math
+y(t_n) = 0.5(	anh(eta(y - t_n)) + 1)
+```
+where \( eta \) controls the steepness of the transition.
 
 ### Joint Optimization
-Combines the feature optimization and threshold search within a node. The loss function is optimized using coordinate descent, alternating between classifier parameters \(\theta_n\) and threshold \(t_n\).
+Combines the feature optimization and threshold search within a node. The loss function is optimized using coordinate descent, alternating between classifier parameters \( 	heta_n \) and threshold \( t_n \).
 
 ---
 
@@ -111,4 +130,7 @@ NRT outperforms baselines in both tasks, demonstrating superior performance in t
 
 ---
 
+## References
+For more details, refer to the original research paper.
 
+---
