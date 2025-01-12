@@ -25,33 +25,23 @@ The Neural Regression Tree (NRT) is a novel approach for Regression-via-Classifi
 
 ### Partition
 A partition, \( \Pi(Y) \), divides the response variable \( y \in Y \) into \( N \) disjoint intervals:
-```math
-\Pi(Y) = \{C_1, C_2, \ldots, C_N\}, 	ext{where } igcup_{n=1}^{N} C_n = Y
-```
+![Partition Equation](https://latex.codecogs.com/png.latex?%5CPi%28Y%29%20%3D%20%5C%7BC_1%2C%20C_2%2C%20%5Cldots%2C%20C_N%5C%7D%2C%20%5Ctext%7Bwhere%7D%20%5Cbigcup_%7Bn%3D1%7D%5E%7BN%7D%20C_n%20%3D%20Y)
 
 ### Classification Rule
 Maps input features \( x \) to bins:
-```math
-h_{	heta}: x 	o \{C_1, \ldots, C_N\}
-```
+![Classification Rule](https://latex.codecogs.com/png.latex?h_%7B%5Ctheta%7D%3A%20x%20%5Cto%20%5C%7BC_1%2C%20%5Cldots%2C%20C_N%5C%7D)
 
 ### Regression Rule
 Maps \( x \) and \( C_n \) to response intervals:
-```math
-r: (x, C_n) 	o (t_{n-1}, t_n]
-```
+![Regression Rule](https://latex.codecogs.com/png.latex?r%3A%20%28x%2C%20C_n%29%20%5Cto%20%28t_%7Bn-1%7D%2C%20t_n%5D)
 
 ### Combined Rule
 Predicts \( \hat{y}(x) \) using posterior probabilities:
-```math
-\hat{y}(x) = \sum_{n=1}^{N} h_{	heta}^n(x) r_{C_n}(x)
-```
+![Combined Rule](https://latex.codecogs.com/png.latex?%5Chat%7By%7D%28x%29%20%3D%20%5Csum_%7Bn%3D1%7D%5E%7BN%7D%20h_%7B%5Ctheta%7D%5En%28x%29%20r_%7BC_n%7D%28x%29)
 
 ### Objective
 Learn optimal thresholds and parameters:
-```math
-\{t^*_n\}, \{	heta^*_n\} \gets rg \min_{t, 	heta} \mathbb{E}_{x}[E(y, \hat{y}(x))]
-```
+![Objective Equation](https://latex.codecogs.com/png.latex?%5C%7Bt%5E*_n%5C%7D%2C%20%5C%7B%5Ctheta%5E*_n%5C%7D%20%5Cgets%20%5Carg%20%5Cmin_%7Bt%2C%20%5Ctheta%7D%20%5Cmathbb%7BE%7D_%7Bx%7D%5BE%28y%2C%20%5Chat%7By%7D%28x%29%29%5D)
 
 ---
 
@@ -61,22 +51,15 @@ The tree is built hierarchically, optimizing each node individually in a greedy 
 
 ### Node Optimization
 Each node \( n \) minimizes a combined loss:
-```math
-	heta^*_n, t^*_n = rg \min_{	heta_n, t_n} \lambda E_{	heta_n, t_n} + (1-\lambda) T(t_n)
-```
+![Node Optimization](https://latex.codecogs.com/png.latex?%5Ctheta%5E*_n%2C%20t%5E*_n%20%3D%20%5Carg%20%5Cmin_%7B%5Ctheta_n%2C%20t_n%7D%20%5Clambda%20E_%7B%5Ctheta_n%2C%20t_n%7D%20%2B%20%281-%5Clambda%29%20T%28t_n%29)
 
 ### Classification Loss
 Measures error in classifying data at each node:
-```math
-E_{	heta_n, t_n} = rac{1}{|D_n|} \sum_{(x, y) \in D_n} E(y(t_n), h_{	heta_n}(x))
-```
+![Classification Loss](https://latex.codecogs.com/png.latex?E_%7B%5Ctheta_n%2C%20t_n%7D%20%3D%20%5Cfrac%7B1%7D%7B%7CD_n%7C%7D%20%5Csum_%7B%28x%2C%20y%29%20%5Cin%20D_n%7D%20E%28y%28t_n%29%2C%20h_%7B%5Ctheta_n%7D%28x%29%29)
 
 ### Triviality Penalty
 Prevents trivial solutions by balancing data across nodes using entropy:
-```math
-T(t_n) = -p(t_n) \log p(t_n) - (1-p(t_n)) \log(1-p(t_n))
-```
-where \( p(t_n) \) is the proportion of data assigned to the left child.
+![Triviality Penalty](https://latex.codecogs.com/png.latex?T%28t_n%29%20%3D%20-p%28t_n%29%20%5Clog%20p%28t_n%29%20-%20%281-p%28t_n%29%29%20%5Clog%281-p%28t_n%29%29)
 
 ---
 
@@ -87,13 +70,7 @@ An exhaustive search across all possible threshold values \( t_n \), selecting t
 
 ### Gradient Method
 Smooth approximation of the binary indicator function \( y(t_n) \) for differentiability:
-```math
-y(t_n) = 0.5(	anh(eta(y - t_n)) + 1)
-```
-where \( eta \) controls the steepness of the transition.
-
-### Joint Optimization
-Combines the feature optimization and threshold search within a node. The loss function is optimized using coordinate descent, alternating between classifier parameters \( 	heta_n \) and threshold \( t_n \).
+![Gradient Method](https://latex.codecogs.com/png.latex?y%28t_n%29%20%3D%200.5%28%5Ctanh%28%5Cbeta%28y%20-%20t_n%29%29%20%2B%201%29)
 
 ---
 
@@ -127,10 +104,5 @@ NRT outperforms baselines in both tasks, demonstrating superior performance in t
 - Not universally optimal across all regression tasks.
 - Optimizes classification error, not regression error directly.
 - Higher variance in specific tasks compared to SVR.
-
----
-
-## References
-For more details, refer to the original research paper.
 
 ---
