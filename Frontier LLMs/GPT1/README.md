@@ -1,4 +1,3 @@
-
 # Improving Language Understanding by Generative Pre-Training
 
 This repository contains a concise overview of the paper **"Improving Language Understanding by Generative Pre-Training"** by Alec Radford, Karthik Narasimhan, Tim Salimans, and Ilya Sutskever (OpenAI). The paper explores a semi-supervised approach for natural language understanding (NLU) tasks by combining **unsupervised pre-training** with **supervised fine-tuning**. This method significantly improves performance across various benchmarks, setting new state-of-the-art results.
@@ -33,15 +32,40 @@ This repository contains a concise overview of the paper **"Improving Language U
   - Handles long-range contexts.
   - Achieves low perplexity (18.4 on BooksCorpus).
 
+The unsupervised pre-training objective is:
+
+```math
+L_1(U) = \sum_i \log P(u_i | u_{i-k}, \dots, u_{i-1}; \Theta)
+```
+
+Where:
+- **k**: Size of the context window.
+- **Θ**: Model parameters.
+
 ### 2. **Supervised Fine-Tuning**
 - Adapts the pre-trained model for specific tasks.
 - Adds task-specific linear output layers and input transformations.
 - Includes auxiliary language modeling objectives to improve generalization and convergence.
 
+The supervised fine-tuning objective is:
+
+```math
+L_2(C) = \sum_{(x, y)} \log P(y | x_1, \dots, x_m)
+```
+
+Combined with the auxiliary objective:
+
+```math
+L_3(C) = L_2(C) + λ \cdot L_1(C)
+```
+
+Where:
+- **λ**: Weight controlling the auxiliary objective.
+
 ### 3. **Task-Specific Input Transformations**
-- Textual Entailment: Concatenate premise and hypothesis with a delimiter.
-- Semantic Similarity: Evaluate both sentence orderings and combine their representations.
-- Question Answering: Encode context, question, and answer candidates into structured sequences.
+- **Textual Entailment**: Concatenate premise and hypothesis with a delimiter.
+- **Semantic Similarity**: Evaluate both sentence orderings and combine their representations.
+- **Question Answering**: Encode context, question, and answer candidates into structured sequences.
 
 ---
 
